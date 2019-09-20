@@ -4,20 +4,18 @@ using UnityEngine;
 
 public class AsteroidManager : MonoBehaviour
 {
-    [SerializeField] Asteroid asteroid;
+    [SerializeField] Asteroid asteroid; //ADD SMALL MEDIUM AND LARGE <-------------
     [SerializeField] int gridCellsOnAxis = 10;
     [SerializeField] int gridSpacing = 30;
 
     Transform gridTrans;
 
-    // Start is called before the first frame update
     void Start()
     {
         gridTrans = transform;
         PlaceAsteroids();
     }
 
-    // Update is called once per frame
     void Update()
     {
         
@@ -39,7 +37,7 @@ public class AsteroidManager : MonoBehaviour
 
     void InstantiateAsteroid(int x, int y, int z)
     {
-        Instantiate(asteroid,
+        Instantiate(asteroid, //ADD SMALL MEDIUM AND LARGE HERE AS WELL<-------------
         new Vector3(gridTrans.position.x + (x * gridSpacing) + AsteroidOffset(),
                     gridTrans.position.y + (y * gridSpacing) + AsteroidOffset(),
                     gridTrans.position.z + (z * gridSpacing) + AsteroidOffset()),

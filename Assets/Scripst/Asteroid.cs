@@ -11,6 +11,8 @@ public class Asteroid : MonoBehaviour
     Vector3 randomRotation;
     Transform asteroidTrans;
 
+
+
     private void Awake()
     {
         asteroidTrans = transform;
@@ -43,4 +45,6 @@ public class Asteroid : MonoBehaviour
         randomRotation.y = Random.Range(-rotationOffset, rotationOffset);
         randomRotation.z = Random.Range(-rotationOffset, rotationOffset);
     }
+
+
 }
