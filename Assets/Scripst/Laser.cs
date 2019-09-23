@@ -6,19 +6,20 @@ using UnityEngine;
 [RequireComponent(typeof(LineRenderer))]
 public class Laser : MonoBehaviour
 {
-    [SerializeField] float laserTime = 0.5f;
+    [SerializeField] float laserTime = 0.05f;
     [SerializeField] float maxDistance = 300f;
     [SerializeField] float fireDelay = 2f;
 
     LineRenderer lr;
     Light laserLight;
     bool canFire;
-
+    AudioSource audioSource;
 
     void Awake()
     {
         lr = GetComponent<LineRenderer>();
         laserLight = GetComponent<Light>();
+        audioSource = GetComponent<AudioSource>();
     }
  
     void Start()
@@ -26,7 +27,6 @@ public class Laser : MonoBehaviour
         lr.enabled = false;
         laserLight.enabled = false;
         canFire = true;
-
     }
 
 
@@ -55,6 +55,7 @@ public class Laser : MonoBehaviour
     { 
         if(canFire)
         {
+            audioSource.Play();
             lr.SetPosition(0, transform.position);
             lr.SetPosition(1, CastRay());
             lr.enabled = true;
@@ -62,8 +63,17 @@ public class Laser : MonoBehaviour
             canFire = false;
             Invoke("TurnOffLaser", laserTime);
             Invoke("CanFire", fireDelay);
+            //StartCoroutine(WaitAndInvoke(laserTime, TurnOffLaser));
+            //StartCoroutine(WaitAndInvoke(fireDelay, CanFire));
         }
     }
+
+    //delegate void InvokedFunction();
+    //IEnumerator WaitAndInvoke(float secondsToWait, InvokedFunction func)
+    //{
+    //    yield return new WaitForSeconds(secondsToWait);
+    //    func();
+    //}
 
     void TurnOffLaser()
     {

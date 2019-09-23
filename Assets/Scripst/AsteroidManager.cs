@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class AsteroidManager : MonoBehaviour
 {
-    [SerializeField] Asteroid asteroid; //ADD SMALL MEDIUM AND LARGE <-------------
+    [SerializeField] Asteroid[] asteroid;
+
     [SerializeField] int gridCellsOnAxis = 10;
     [SerializeField] int gridSpacing = 30;
 
@@ -29,21 +30,24 @@ public class AsteroidManager : MonoBehaviour
             {
                 for (int z = 0; z < gridCellsOnAxis; z++)
                 {
-                    InstantiateAsteroid(x, y, z);
+                    InstantiateRandomAsteroid(x, y, z);
                 }
             }
         }
     }
 
-    void InstantiateAsteroid(int x, int y, int z)
+    void InstantiateRandomAsteroid(int x, int y, int z)
     {
-        Instantiate(asteroid, //ADD SMALL MEDIUM AND LARGE HERE AS WELL<-------------
+        int i = Random.Range(0,asteroid.Length);
+        Instantiate(asteroid[i], 
         new Vector3(gridTrans.position.x + (x * gridSpacing) + AsteroidOffset(),
                     gridTrans.position.y + (y * gridSpacing) + AsteroidOffset(),
                     gridTrans.position.z + (z * gridSpacing) + AsteroidOffset()),
                     Quaternion.identity,
                     gridTrans );
     }
+
+
 
     float AsteroidOffset()
     {
